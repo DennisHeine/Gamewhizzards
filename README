@@ -1,0 +1,19 @@
+The Client:
+===================
+the entry point for gettint into it ist https://sourceforge.net/p/gamewhizzards/code/ci/master/tree/client/Assets/_GameWhizzards/GameLogic/init.cs
+using visual studio's "go to definition" feature, it will be easy to take a peak into the different aspects of the code.
+If you are interested in the networking/movement part (the "holy grail" of mmorpg development), take a look at https://sourceforge.net/p/gamewhizzards/code/ci/master/tree/client/Assets/_GameWhizzards/GameLogic/PlayersAndEnemys/GlobalPositionsUpdate.cs
+The clientside prediction (which ist basically time dependant vector interpolation in 3d-space) is beginning at line 40.
+
+The state machine, which syncs character states with animations and audio, can be found at https://sourceforge.net/p/gamewhizzards/code/ci/master/tree/client/Assets/_GameWhizzards/GameLogic/Tools/StateMachine.cs (quite quirky atm)
+
+The Server:
+===================
+The Server can be found at https://sourceforge.net/p/gamewhizzards/code/ci/master/tree/core_server/
+There are two projects, core_server and LoginServer. core_server ist the instance server. LoginServer is the main server.
+Just browse through it, it has still got to be refactored.
+
+The World Editor:
+===================
+The world editor is at https://sourceforge.net/p/gamewhizzards/code/ci/master/tree/WorldEditor/
+It is not working yet.

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameWhizzards Launcher", "GameWhizzards Launcher\GameWhizzards Launcher.csproj", "{DA9680C4-7D8E-40FA-91AA-92F5F104F730}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DA9680C4-7D8E-40FA-91AA-92F5F104F730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA9680C4-7D8E-40FA-91AA-92F5F104F730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA9680C4-7D8E-40FA-91AA-92F5F104F730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA9680C4-7D8E-40FA-91AA-92F5F104F730}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51E60569-3AD3-4AE6-9917-F05C30976160}
+	EndGlobalSection
+EndGlobal

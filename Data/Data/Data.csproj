@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{089C5D40-7EB4-491B-B63A-FB57D37EAC23}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Data</RootNamespace>
+    <AssemblyName>Data</AssemblyName>
+    <TargetFrameworkVersion>v3.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NetworkCommsDotNetComplete">
+      <HintPath>..\..\..\..\Documents\GitHub\gamewhizzards\server\Assets\NetworkCommsDotNetComplete.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Actions\Fight\cAttack.cs" />
+    <Compile Include="Actions\Fight\cEnemyAttack.cs" />
+    <Compile Include="Characters\Characters.cs" />
+    <Compile Include="Characters\Dialogs\Dialog.cs" />
+    <Compile Include="Characters\EnemyCharacter.cs" />
+    <Compile Include="Characters\CharacterInstances\CharacterInstance.cs" />
+    <Compile Include="Characters\CharacterInstances\EnemyFightingCharacterInstance.cs" />
+    <Compile Include="Characters\Equipment\cEquipment.cs" />
+    <Compile Include="Characters\FightingCharacter.cs" />
+    <Compile Include="Characters\CharacterInstances\FightingCharacterInstance.cs" />
+    <Compile Include="Characters\CharacterInstances\PlayerFightingCharacterInstance.cs" />
+    <Compile Include="Characters\CharacterInstances\States\State.cs" />
+    <Compile Include="Characters\Inventory\Inventory.cs" />
+    <Compile Include="Characters\Inventory\InventoryItem.cs" />
+    <Compile Include="Characters\Inventory\Loot.cs" />
+    <Compile Include="Characters\Inventory\LootItem.cs" />
+    <Compile Include="Characters\Items\Item.cs" />
+    <Compile Include="Characters\NPCCharacter.cs" />
+    <Compile Include="Characters\CharacterInstances\NPCCharacterInstance.cs" />
+    <Compile Include="Characters\PlayerCharacter.cs" />
+    <Compile Include="Characters\Skills\Skill.cs" />
+    <Compile Include="Characters\CharacterInstances\States\StatesCollection.cs" />
+    <Compile Include="Chat\Channel.cs" />
+    <Compile Include="Chat\ChatMessage.cs" />
+    <Compile Include="Chat\PrivateMessage.cs" />
+    <Compile Include="cPositionDataEnemys.cs" />
+    <Compile Include="DataObject.cs" />
+    <Compile Include="EnemyDeadPackager.cs" />
+    <Compile Include="EquipItemPackage.cs" />
+    <Compile Include="Fighting\Fight.cs" />
+    <Compile Include="GlobalEnemyData.cs" />
+    <Compile Include="Mods\BossEnemys.cs" />
+    <Compile Include="Mods\EnemyColection.cs" />
+    <Compile Include="Mods\Mod.cs" />
+    <Compile Include="Mods\NPCCollection.cs" />
+    <Compile Include="Quests\Aufgaben\AudgabeKill.cs" />
+    <Compile Include="Quests\Aufgaben\AufgabeBringItem.cs" />
+    <Compile Include="Quests\Aufgaben\AufgabeCollect.cs" />
+    <Compile Include="Quests\Aufgaben\AufgabenCollection.cs" />
+    <Compile Include="Quests\Aufgaben\AufgabeTalkTo.cs" />
+    <Compile Include="Quests\Quest.cs" />
+    <Compile Include="Quests\Aufgaben\QuestAufgaben.cs" />
+    <Compile Include="Characters\CharacterInstances\States\StateTypes.cs" />
+    <Compile Include="Spells\Spell.cs" />
+    <Compile Include="Stats\Stat.cs" />
+    <Compile Include="cPackage.cs" />
+    <Compile Include="cPositionData.cs" />
+    <Compile Include="GlobalPlayerData.cs" />
+    <Compile Include="LoginData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Menu.cs" />
+    <Compile Include="UI\MenuItem.cs" />
+    <Compile Include="UI\Notification.cs" />
+    <Compile Include="WorldData\cGameObject.cs" />
+    <Compile Include="WorldData\cGameObjectPosition.cs" />
+    <Compile Include="WorldData\cWorldData.cs" />
+    <Compile Include="WorldState.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
