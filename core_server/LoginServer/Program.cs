@@ -22,7 +22,7 @@ namespace LoginServer
     {
 
         private static bool blocked = false;
-        private static double MAX_ENEMY_DISTANCE = 20.0;
+        private static double MAX_ENEMY_DISTANCE =20.0f;
 
         private static ConcurrentDictionary<string,cPositionData> GlobalPlayers = new ConcurrentDictionary<string, cPositionData>();
         //private static ConcurrentDictionary<string, cPositionData> GlobalPlayers = new ConcurrentDictionary<string, cPositionData>();
@@ -387,9 +387,9 @@ namespace LoginServer
 
                                 Data.cPositionData player = GlobalPlayers[GlobalEnemys[ID].target];
 
-                                GlobalEnemys[ID].x = GlobalPlayers[GlobalEnemys[ID].target].x + 3.0f;
-                                GlobalEnemys[ID].z = GlobalPlayers[GlobalEnemys[ID].target].z + 3.0f;
-                                if (GetDistance(avaX, avaY, player.x, player.z) < 5)
+                                GlobalEnemys[ID].x = GlobalPlayers[GlobalEnemys[ID].target].x + 1.0f;
+                                GlobalEnemys[ID].z = GlobalPlayers[GlobalEnemys[ID].target].z + 1.0f;
+                                if (GetDistance(avaX, avaY, player.x, player.z) < 1.5)
                                 {
                                     if (!GlobalEnemys[ID].isInFight)
                                     {

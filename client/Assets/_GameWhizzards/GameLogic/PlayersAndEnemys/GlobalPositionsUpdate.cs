@@ -74,7 +74,7 @@ public static class GlobalPositionsUpdate  {
                 GameObject avatar1 = GameObject.Find("vThirdPersonController");
                 StateMachine sm1 = avatar1.GetComponent<StateMachine>();
                 if (Globals.PlayerPosition.moving)
-                    sm1.changeState("Walking", StateTypes.STATE_WALKING, "vThirdPersonController");
+                    sm1.changeState("Moving", StateTypes.STATE_WALKING, "vThirdPersonController");
                 else
                     sm1.changeState("Idle", StateTypes.STATE_IDLE, "vThirdPersonController");
             }
@@ -118,6 +118,7 @@ public static class GlobalPositionsUpdate  {
                         if (pos.SessionID != Globals.SessionID && Globals.SessionID != "" && Globals.SessionID != null)
                         {
                             GameObject avatar = GameObject.Find(pos.SessionID);
+			    
                             cPositionData player;
 
                             Globals.GlobalPlayerPositions.TryGetValue(Globals.SessionID, out player);
@@ -126,13 +127,14 @@ public static class GlobalPositionsUpdate  {
                             Animator a = avatar.GetComponent<Animator>();
                             StateMachine sm;
                             sm = avatar.GetComponent<StateMachine>();
-
-
+	                    //----Damage---
+			    //Enemy is targeted by a player
                             if (player.target != null)
                             {
+				//target is current enemy
                                 if (player.target == pos.SessionID)
                                 {
-
+				    //attack
                                     GameObject HealthBar = GameObject.Find("Health Bar");
                                     if (HealthBar != null)
                                     {
@@ -165,110 +167,106 @@ public static class GlobalPositionsUpdate  {
                                 {
                                     try
                                     {
-                                        if (pos.moving)
-                                            sm.changeState("Walking", StateTypes.STATE_WALKING, pos.SessionID);
-                                        else
-                                            sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
+					
+						
+					
+					//set animatin according to whether mob is moving
+					if(sm.currentState!="Attacking" && sm.currentState!="Walking"&& sm.currentState!="Running")
+                                        //	if (pos.moving)
+                                            		sm.changeState("Moving", StateTypes.STATE_WALKING, pos.SessionID);
+                                        	
                                     }
                                     catch (Exception) { }
-                                    sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
+                                    //sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
+
                                     Vector3 newpos = avatar.transform.position;
-                                    float time = Time.deltaTime < 0.01f ? Time.deltaTime : 0.01f;                                   
+                                    float time = Time.deltaTime;// < 0.01f ? Time.deltaTime : 0.01f;                                   
 
                                     float avaX = 0;
                                     float avaY = 0;
-
+                                    //Get current position of enemy gameobject(rounded)
                                     avaX = (float)Math.Round(avatar.transform.position.x, 1, MidpointRounding.AwayFromZero);//   avatar.transform.position.x-(avatar.transform.position.x % 1f);
                                     avaY = (float)Math.Round(avatar.transform.position.z, 1, MidpointRounding.AwayFromZero);//   avatar.transform.position.x-(avatar.transform.position.x % 1f);
 
-
+				    //get new enemy position (from server)
                                     float targetX = (float)Math.Round(pos.x, 1, MidpointRounding.AwayFromZero);//   avatar.transform.position.x-(avatar.transform.position.x % 1f);
                                     float targetY = (float)Math.Round(pos.z, 1, MidpointRounding.AwayFromZero);//   avatar.transform.position.x-(avatar.transform.position.x % 1f);
-
-                                    if (pos.target != null && Globals.GlobalPlayerPositions.ContainsKey(pos.target))
+					
+                                 //   if (pos.target != null && Globals.GlobalPlayerPositions.ContainsKey(pos.target))
                                     {
-                                        //NO TARGET
+                                        
                                   
-                                        if (pos.isInFight == false)
-                                            if (GWTools.GetDistance(targetX, targetY, player.x, player.z) > 4.0)                                            
+                                    //    if (pos.isInFight == false)
+ 					    //if not colliding
+                                            if (!avatar.GetComponent<DoCollission>().Stoped)                                            
                                             {
 
-
+                                                //got target and target is valid
                                                 if (pos.target != null && Globals.GlobalPlayerPositions.ContainsKey(pos.target))
                                                 {
-                                                    
-                                                    if (!Globals.inFight)
-                                                        sm.changeState("Running", StateTypes.STATE_RUNNING, pos.SessionID);
-                                                    else
-                                                        sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
+                                                    //Set animation
+                                                    //if (!Globals.inFight)
+						    if(sm.currentState!="Running")
+                                                       sm.changeState("Running", StateTypes.STATE_RUNNING, pos.SessionID);
+                                                   // else if(avatar.GetComponent<DoCollission>().Stoped)
+                                                    //    sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
+	                                        //    if(sm.currentState!="Attacking")
+						//    	sm.changeState("Attacking", StateTypes.STATE_FIGHTING, pos.SessionID);
+						    //set go to either current player, or other multiplayer character
                                                     GameObject go = pos.target == Globals.SessionID ? GameObject.Find("vThirdPersonController") : GameObject.Find(pos.target);
-
+						    //Rotate towards player
                                                     Vector3 targetPoint = new Vector3(go.transform.position.x, avatar.transform.position.y, go.transform.position.z) - avatar.transform.position;
                                                     Quaternion targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
                                                     avatar.transform.rotation = Quaternion.RotateTowards(avatar.transform.rotation, targetRotation, 360);
-                                                   
-                                                }
-                                                else
-                                                {                                                    
-                                                    sm.changeState("Walking", StateTypes.STATE_WALKING, pos.SessionID);
-                                                }
-
+                                                   //set movement towards new positin
                                                 newpos.x = avatar.transform.position.x + ((GWTools.posEnemyToVector3(pos).x - avatar.transform.position.x) * time);
                                                 newpos.z = avatar.transform.position.z + ((GWTools.posEnemyToVector3(pos).z - avatar.transform.position.z) * time);
 
-
-                                            }
-                                            else
-                                            {
+						avatar.transform.position = newpos; 
+ 						Globals.inFight = false;
+                                                }
                                                
-                                                sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
-                                                GameObject go = pos.target == Globals.SessionID ? GameObject.Find("vThirdPersonController") : GameObject.Find(pos.target);
-
-                                                newpos.x = avatar.transform.position.x + ((GWTools.posEnemyToVector3(pos).x - avatar.transform.position.x) * time);
-                                                newpos.z = avatar.transform.position.z + ((GWTools.posEnemyToVector3(pos).z - avatar.transform.position.z) * time);
-
+                                                
                                             }
-                                        
-                                        if (GWTools.GetDistance(avaX, avaY, player.x, player.z) < 4)
-                                        {
+                                            if(avatar.GetComponent<DoCollission>().Stoped )
 
 
+						{
                                             Globals.inFight = true;
-
+					    if(sm.currentState!="Attacking")
+					   	 sm.changeState("Attacking", StateTypes.STATE_FIGHTING, pos.SessionID);
                                             GameObject go = pos.target == Globals.SessionID ? GameObject.Find("vThirdPersonController") : GameObject.Find(pos.target);
 
                                             Vector3 targetPoint = new Vector3(go.transform.position.x, avatar.transform.position.y, go.transform.position.z) - avatar.transform.position;
                                             Quaternion targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
                                             avatar.transform.rotation = Quaternion.RotateTowards(avatar.transform.rotation, targetRotation, 360);
                                         }
-                                        else
-                                        {
-                                            Globals.inFight = false;
-
-                                        }
+                                       
+				    //apply position
+                                     
                                     }// END NO TARGET
-                                    else
+                              //      else
                                     {
-                                        //HAS TARGET
+                                 /*       //HAS TARGET
 
-                                        if (avatar.transform.position.x - pos.x > 0.1 || avatar.transform.position.z - pos.z > 0.1 || pos.z - avatar.transform.position.z > 0.1 || pos.x - avatar.transform.position.x > 0.1)
+                                        if (!avatar.GetComponent<DoCollission>().Stoped)
                                         {
                                             Vector3 targetPoint = new Vector3(pos.x, avatar.transform.position.y, pos.z) - avatar.transform.position;
                                             Quaternion targetRotation = Quaternion.LookRotation(targetPoint, Vector3.up);
                                             avatar.transform.rotation = Quaternion.Slerp(avatar.transform.rotation, targetRotation, Time.deltaTime * 10.0f);
 
                                             sm.changeState("Walking", StateTypes.STATE_WALKING, pos.SessionID);
-                                            newpos.x = avatar.transform.position.x + ((GWTools.posEnemyToVector3(pos).x - avatar.transform.position.x) * time);
-                                            newpos.z = avatar.transform.position.z + ((GWTools.posEnemyToVector3(pos).z - avatar.transform.position.z) * time);
+                                            newpos.x = avatar.transform.position.x + ((GWTools.posEnemyToVector3(pos).x - avatar.transform.position.x) * time*5);
+                                            newpos.z = avatar.transform.position.z + ((GWTools.posEnemyToVector3(pos).z - avatar.transform.position.z) * time*5);
 
                                         }
                                         else
                                         {
-                                            sm.changeState("Idle", StateTypes.STATE_IDLE, pos.SessionID);
-                                            newpos.x = pos.x;
-                                            newpos.z = pos.z;
+                                            sm.changeState("Attacking", StateTypes.STATE_FIGHTING, pos.SessionID);
+                                            newpos.x = avatar.transform.position.x;
+                                            newpos.z = avatar.transform.position.z;
 
-                                        }
+                                        }*/
                                     }//END HAS TARGET
 
                                     //apply position

@@ -36,7 +36,7 @@ public class init : MonoBehaviour
        
         //Connect to server
         IPHostEntry hostEntry;
-        hostEntry = Dns.GetHostEntry("server.gamewhizzards.ml");
+        hostEntry = Dns.GetHostEntry("gw.h2x.us");
 
        // String ServerIP = "192.168.2.109";
         var ServerIP = hostEntry.AddressList[0];
@@ -65,7 +65,14 @@ public class init : MonoBehaviour
 
         //Hide Inventory
         Globals._Inventory = GameObject.Find("Inventory");
+        Inventory inv=Globals._Inventory.AddComponent<Inventory>();
+        inv.inventory_area_background = (Texture2D)Resources.Load<Texture2D>("BlankPanel-3");
+
         Globals._Inventory.SetActive(false);
+
+        GameObject dragme = GameObject.Find("DragMe");
+        dragme.AddComponent<DragMe>();
+
 
         //Start cooldowns thread
         Globals.cooldownThread = new System.Threading.Thread(CooldownThrd);
@@ -189,7 +196,8 @@ public class init : MonoBehaviour
                     else
                     {
                         scItem.textColor = Color.white;
-                    }                                        
+                    }
+                    scItem.inventoryTexture = Resources.Load<Texture2D>("sword");
                     inv.GetComponent<Inventory>().items[i] = goItem;
                 }
             }

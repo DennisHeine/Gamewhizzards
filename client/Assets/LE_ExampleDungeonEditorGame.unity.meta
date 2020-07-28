@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d082c0b97d483ae42a0195a5ee7f137e
+guid: ccfba27bc5b3f374099f7b5d9319bcf4
 labels:
 - Objects
 - Terrain
@@ -13,4 +13,7 @@ labels:
 - Runtime
 - Multiplatform
 DefaultImporter:
+  externalObjects: {}
   userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -44,7 +44,7 @@ public static class GWTools {
 
     public static void unlockMouse()
     {
-        GameObject v = GameObject.Find("vThirdPersonCamera");
+        GameObject v = GameObject.Find("vThirdPersonController");
         vThirdPersonCamera cam = v.GetComponent<vThirdPersonCamera>();
         cam.lockCamera = true;
         /*Invector.CharacterController.vThirdPersonInput i = v.GetComponent<Invector.CharacterController.vThirdPersonInput>();

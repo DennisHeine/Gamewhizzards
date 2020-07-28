@@ -13,7 +13,7 @@ public class StateMachine : MonoBehaviour
     public StatesCollection col = new StatesCollection();
     public GameObject avatar;
     public bool playContinousJN;
-    String currentState = "";
+    public String currentState = "";
     public AudioSource s;
 
     private void Awake()
@@ -43,8 +43,8 @@ public class StateMachine : MonoBehaviour
         col.AvailableStates.Clear();
         String path = Environment.CurrentDirectory;
         path = path.Replace("\\", "/");
-        State state = new State("Walking", StateTypes.STATE_WALKING, true, "Moving", "file://" + path + "/footsteps.ogg");
-        col.AvailableStates.Add("Walking", state);
+        State state = new State("Moving", StateTypes.STATE_WALKING, true, "Moving", "file://" + path + "/footsteps.ogg");
+        col.AvailableStates.Add("Moving", state);
 
         state = new State("Attacking", StateTypes.STATE_FIGHTING, true, "Attack6Trigger", "");
         col.AvailableStates.Add("Attacking", state);
@@ -52,7 +52,7 @@ public class StateMachine : MonoBehaviour
         state = new State("Running", StateTypes.STATE_RUNNING, true, "Running", "");
         col.AvailableStates.Add("Running", state);
         loadPool("Walking", "file://" + path + "/footsteps.ogg");
-        state = new State("Idle", StateTypes.STATE_IDLE, false, "Moving", "");
+        state = new State("Idle", StateTypes.STATE_IDLE, false, "Idle", "");
         col.AvailableStates.Add("Idle", state);
      
     }
@@ -77,30 +77,32 @@ public class StateMachine : MonoBehaviour
     
     public void changeState(string newStateName, StateTypes type, string ID)
     {
-        if (newStateName != currentState)
+Animator a = avatar.GetComponent<Animator>();
+        if (newStateName!=currentState)
         {
             currentState = newStateName;                
             //Animation
             State s1 = col.AvailableStates[newStateName];
-            Animator a = avatar.GetComponent<Animator>();
+            
 
             a.SetBool("Moving", false);
             a.SetBool("Running", false);
-
+	a.SetBool("Attack6Trigger",false);
+	if(type==StateTypes.STATE_WALKING)
+		a.SetBool("Moving",true);
 
             if (type == StateTypes.STATE_FIGHTING)
-                a.SetTrigger(s1.Animation);
-
-
+		a.SetBool("Attack6Trigger",true);
+                
             if (type == StateTypes.STATE_RUNNING)
-                a.SetBool("Moving", true);
+                a.SetBool("Running", true);
             if (type == StateTypes.STATE_IDLE)
             {
                 a.SetBool("Running", false);
                 a.SetBool("Moving", false);
+		a.SetBool("Attack6Trigger", false);
             }
-            else
-                a.SetBool(s1.Animation, s1.OnOff);
+            
             s = avatar.GetComponent<AudioSource>();
             
             
