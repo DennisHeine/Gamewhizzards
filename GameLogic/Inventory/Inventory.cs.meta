@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 24429c897ba82a546b52ea460cd2b68d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inventory_area_background: {fileID: 2800000, guid: a2adb12c2db13834ba1c52aeba906e43,
+      type: 3}
+  - up_button_texture: {fileID: 2800000, guid: b5f5e105b7ec2a74293bd7de6bceedcf, type: 3}
+  - down_button_texture: {fileID: 2800000, guid: 576829f593d29ac4ba43129ca336a6b5,
+      type: 3}
+  - label_font: {fileID: 12800000, guid: 8c83fffec93e7754f9e799d908341575, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
