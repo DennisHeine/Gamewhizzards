@@ -6,6 +6,9 @@ Our goal is to bring an user editable and extendable MMORPG to you, allowing eve
 
 <img src="https://h2x.us/wp-content/uploads/2020/11/Unbenannt-2.png"></img>
 
+Demo Video:
+https://www.youtube.com/watch?v=eLpZIhGdawU
+
 The networking part has been coded according to Gabriel Gambetta’s excelent guide at http://www.gabrielgambetta.com/client-side-prediction-server-reconciliation.html
 It uses clientside prediction, server recoinciliation, and an authoritative server for player and enemy movement.
 
